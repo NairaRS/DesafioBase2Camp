@@ -13,17 +13,17 @@ import java.util.concurrent.TimeUnit;
 public class MyViewPage {
     private WebDriver driver;
     private By pesquisar = By.xpath("//input[@name='bug_id']");
-    private By jump = By.className("button-small");
+    private By jump = By.xpath("//input[@value='Jump']");
     private By project = By.xpath("//table/tbody/tr[3]/td[2]");
     private By category = By.xpath("//table/tbody/tr[3]/td[3]");
     private By nome = By.xpath("//table/tbody/tr[11]/td[2]");
 
     public MyViewPage(WebDriver driver){
         this.driver = driver;
-        FluentWait wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(5))
+        /*FluentWait wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(5))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pesquisar));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pesquisar));*/
     }
 
     public void pesquisarIssue(String texto){

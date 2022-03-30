@@ -52,4 +52,9 @@ public class ReportPage {
     public String issueReportadoComSucesso(){
         return driver.findElement(issueReportado).getText();
     }
+
+    public void carregarPaginaInicial() {
+        driver.get("https://mantis-prova.base2.com.br/my_view_page.php");
+    }
+
 }

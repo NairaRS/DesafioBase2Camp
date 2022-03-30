@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class HomePageTest extends BaseTests {
 
     @Test
-    public void testeLoginComSucesso_EstaLogado(){
+    public void testeLoginComSucesso_EstaLogado() {
         inicializar();
         carregarPaginaInicial();
         //Preencher usuario
@@ -28,7 +28,7 @@ public class HomePageTest extends BaseTests {
         String user = homePage.estaLogado();
         capturarTela(user);
 
-        //2º TESTE @TEST 2
+        //2º Teste = Criar Issue
 
         ReportPage reportPage = homePage.reportarIssue();
         //Escolher projeto
@@ -42,7 +42,7 @@ public class HomePageTest extends BaseTests {
         //Selecionar reprodutibilidade
         reportPage.selecionarReprodutibilidade();
         //Preencher sumario
-        String sumario = "Teste_NRS2";
+        String sumario = "Teste_NRS";
         reportPage.preencherSumario(sumario);
         //Preencher descricao
         String descricao = "Teste rapido software";
@@ -55,16 +55,16 @@ public class HomePageTest extends BaseTests {
         String mensagem = "Operation successful.";
         Assert.assertTrue(reportPage.issueReportadoComSucesso().contains(mensagem));
 
-        //3º TESTE @TEST 3
+        //3º Teste = Pesquisar Issue
 
         //Pesquisar issue
-
+        carregarPaginaInicial();
         String id = "9036";
         mvPage.pesquisarIssue(id);
         mvPage.clicarPesquisar();
         //Verificar
         assertEquals(mvPage.Category_Sucesso(), categoria);
-        assertEquals(mvPage.Summary_Sucesso(), sumario);
+        Assert.assertTrue(mvPage.Summary_Sucesso().contains(sumario));
         assertEquals(mvPage.Project_Sucesso(), nome_projeto);
     }
 }

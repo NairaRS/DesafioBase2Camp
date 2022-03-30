@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class HomePage {
     private WebDriver driver;
     private By usuarioLogado = By.cssSelector(".login-info-left span.italic");
-    private By botaoReport = By.cssSelector(".menu a[href^='/']:nth-child(3)");
+    private By botaoReport = By.xpath("//a[contains(@href, '/bug')]");
 
     public HomePage (WebDriver driver){
         this.driver = driver;
