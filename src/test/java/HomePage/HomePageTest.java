@@ -4,8 +4,8 @@ import Base.BaseTests;
 import Pages.HomePage;
 import Pages.MyViewPage;
 import Pages.ReportPage;
+import org.junit.Assert;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class HomePageTest extends BaseTests {
@@ -51,7 +51,14 @@ public class HomePageTest extends BaseTests {
         MyViewPage mvPage = reportPage.clicarBotaoSubmeter();
         String submissao = "Report_Issue_Sucesso";
         capturarTela(submissao);
+        espera();
+        String mensagem = "Operation successful.";
+        Assert.assertTrue(reportPage.issueReportadoComSucesso().contains(mensagem));
+
+        //3º TESTE @TEST 3
+
         //Pesquisar issue
+
         String id = "9036";
         mvPage.pesquisarIssue(id);
         mvPage.clicarPesquisar();

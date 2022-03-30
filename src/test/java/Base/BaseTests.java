@@ -20,6 +20,10 @@ public class BaseTests extends GetDriver {
     private static WebDriver driver;
     protected LoginPage loginPage;
 
+    public static void espera(){
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
     @BeforeAll
     public static void inicializar(){
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\naira\\Downloads\\chromedriver.exe");

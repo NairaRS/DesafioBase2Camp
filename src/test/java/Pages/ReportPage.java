@@ -14,6 +14,7 @@ public class ReportPage {
     private By sumario = By.xpath("//input[@name='summary']");
     private By descricao = By.xpath("//textarea[@name='description']");
     private By botaoSubmeter = By.className("button");
+    private By issueReportado = By.xpath("//body/div[@align='center']");
 
     public ReportPage(WebDriver driver){
         this.driver = driver;
@@ -46,5 +47,9 @@ public class ReportPage {
     public MyViewPage clicarBotaoSubmeter(){
         driver.findElement(botaoSubmeter).click();
         return new MyViewPage(driver);
+    }
+
+    public String issueReportadoComSucesso(){
+        return driver.findElement(issueReportado).getText();
     }
 }
