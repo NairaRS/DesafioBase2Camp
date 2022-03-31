@@ -4,8 +4,14 @@ import Base.BaseTests;
 import Pages.HomePage;
 import Pages.MyViewPage;
 import Pages.ReportPage;
+import Pages.ViewIssues;
+import Util.Funcoes;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.assertEquals;
 
 public class HomePageTest extends BaseTests {
@@ -53,18 +59,29 @@ public class HomePageTest extends BaseTests {
         capturarTela(submissao);
         espera();
         String mensagem = "Operation successful.";
+        String id_IssueCriado = Funcoes.remove_texto(reportPage.issueReportadoComSucesso());
+        System.out.print(id_IssueCriado);
         Assert.assertTrue(reportPage.issueReportadoComSucesso().contains(mensagem));
 
         //3º Teste = Pesquisar Issue
 
-        //Pesquisar issue
+        //Pesquisar issue por ID
+        //String id = "9036";
         carregarPaginaInicial();
-        String id = "9036";
-        mvPage.pesquisarIssue(id);
+        mvPage.pesquisarIssue(id_IssueCriado);
         mvPage.clicarPesquisar();
         //Verificar
-        assertEquals(mvPage.Category_Sucesso(), categoria);
-        Assert.assertTrue(mvPage.Summary_Sucesso().contains(sumario));
-        assertEquals(mvPage.Project_Sucesso(), nome_projeto);
+        Assert.assertTrue(mvPage.id_Sucesso().contains(id_IssueCriado));
+        //assertEquals(mvPage.id_Sucesso(), id_IssueCriado);
+        assertEquals(mvPage.category_Sucesso(), categoria);
+        Assert.assertTrue(mvPage.summary_Sucesso().contains(sumario));
+        assertEquals(mvPage.project_Sucesso(), nome_projeto);
+        //Pesquisar por outros filtros
+        carregarPaginaInicial();
+        ViewIssues viewIssues = mvPage.clicarViewIssues();
+        viewIssues.procurarIssue("Teste_NRS");
+        viewIssues.filtrarIssue();
+        assertEquals(viewIssues.localizarIssue(), sumario);
     }
+
 }
