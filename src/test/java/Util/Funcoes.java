@@ -8,7 +8,6 @@ public class Funcoes {
         Pattern p = Pattern.compile("([0]{0,6}\\d+)");
         Matcher m = p.matcher(texto);
         m.find();
-        //System.out.print("Frase: " + texto + "Regerx Result: " +m.group(1));
         return m.group().toString();
     }
 }

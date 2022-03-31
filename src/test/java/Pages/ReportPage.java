@@ -15,6 +15,7 @@ public class ReportPage {
     private By descricao = By.xpath("//textarea[@name='description']");
     private By botaoSubmeter = By.className("button");
     private By issueReportado = By.xpath("//body/div[@align='center']");
+    private By diaHora = By.cssSelector(".login-info-middle span[class='italic']");
 
     public ReportPage(WebDriver driver){
         this.driver = driver;
@@ -52,6 +53,8 @@ public class ReportPage {
     public String issueReportadoComSucesso(){
         return driver.findElement(issueReportado).getText();
     }
+
+    public String dataHora(){ return driver.findElement(diaHora).getText();}
 
     public void carregarPaginaInicial() {
         driver.get("https://mantis-prova.base2.com.br/my_view_page.php");

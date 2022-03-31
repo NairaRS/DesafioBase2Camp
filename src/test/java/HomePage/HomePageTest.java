@@ -32,7 +32,9 @@ public class HomePageTest extends BaseTests {
         //carregarPaginaInicial();
         assertEquals(homePage.estaLogado(), "naira.souza");
         String user = homePage.estaLogado();
-        capturarTela(user);
+        String dataHora = homePage.diaEHora();
+        System.out.print(dataHora);
+        capturarTela(user, dataHora);
 
         //2º Teste = Criar Issue
 
@@ -56,7 +58,9 @@ public class HomePageTest extends BaseTests {
         //Submeter
         MyViewPage mvPage = reportPage.clicarBotaoSubmeter();
         String submissao = "Report_Issue_Sucesso";
-        capturarTela(submissao);
+        String diaHora = reportPage.dataHora();
+        capturarTela(submissao, diaHora);
+        System.out.print(diaHora);
         espera();
         String mensagem = "Operation successful.";
         String id_IssueCriado = Funcoes.remove_texto(reportPage.issueReportadoComSucesso());
@@ -71,8 +75,12 @@ public class HomePageTest extends BaseTests {
         mvPage.pesquisarIssue(id_IssueCriado);
         mvPage.clicarPesquisar();
         //Verificar
-        Assert.assertTrue(mvPage.id_Sucesso().contains(id_IssueCriado));
+        capturarTelaSimples(id_IssueCriado);
+        //Assert.assertTrue(mvPage.id_Sucesso().contains(id_IssueCriado));
         //assertEquals(mvPage.id_Sucesso(), id_IssueCriado);
+        Pattern p = Pattern.compile("0"+id_IssueCriado+"$");
+        Matcher m = p.matcher(mvPage.id_Sucesso());
+        Assert.assertTrue("Tem meu dígito!", m.find());;
         assertEquals(mvPage.category_Sucesso(), categoria);
         Assert.assertTrue(mvPage.summary_Sucesso().contains(sumario));
         assertEquals(mvPage.project_Sucesso(), nome_projeto);
@@ -81,6 +89,7 @@ public class HomePageTest extends BaseTests {
         ViewIssues viewIssues = mvPage.clicarViewIssues();
         viewIssues.procurarIssue("Teste_NRS");
         viewIssues.filtrarIssue();
+        capturarTelaSimples(sumario);
         assertEquals(viewIssues.localizarIssue(), sumario);
     }
 

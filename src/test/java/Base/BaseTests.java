@@ -36,14 +36,25 @@ public class BaseTests extends GetDriver {
         loginPage = new LoginPage(driver);
     }
 
-    public void capturarTela(String nomeTeste) {
-        File capturaDeTela = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    public void capturarTelaSimples(String nomeTeste) {
+        File capturaDeTelaSimples = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            Files.move(capturaDeTela, new File("resources/screenshots/" + nomeTeste + "_" + ".png"));
+            Files.move(capturaDeTelaSimples, new File("resources/screenshots/" + nomeTeste + ".png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void capturarTela(String nomeTeste, String dataEHora) {
+            File capturaDeTela = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            try {
+                Files.move(capturaDeTela, new File("resources/screenshots/" + nomeTeste + "_" + dataEHora + ".png"));
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
     }
 
     @AfterAll

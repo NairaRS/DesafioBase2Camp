@@ -7,6 +7,7 @@ public class HomePage {
     private WebDriver driver;
     private By usuarioLogado = By.cssSelector(".login-info-left span.italic");
     private By botaoReport = By.xpath("//a[contains(@href, '/bug')]");
+    private By dataEHorario = By.cssSelector(".login-info-middle span[class='italic']");
 
     public HomePage (WebDriver driver){
         this.driver = driver;
@@ -14,6 +15,10 @@ public class HomePage {
 
     public String estaLogado(){
         return driver.findElement(usuarioLogado).getText();
+    }
+
+    public String diaEHora(){
+        return driver.findElement(dataEHorario).getText();
     }
 
     public ReportPage reportarIssue(){
