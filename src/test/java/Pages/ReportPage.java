@@ -56,8 +56,4 @@ public class ReportPage {
 
     public String dataHora(){ return driver.findElement(diaHora).getText();}
 
-    public void carregarPaginaInicial() {
-        driver.get("https://mantis-prova.base2.com.br/my_view_page.php");
-    }
-
 }

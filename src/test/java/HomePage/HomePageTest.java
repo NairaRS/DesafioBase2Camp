@@ -91,6 +91,53 @@ public class HomePageTest extends BaseTests {
         viewIssues.filtrarIssue();
         capturarTelaSimples(sumario);
         assertEquals(viewIssues.localizarIssue(), sumario);
+
+        //4º Teste = Editar Issue
+        carregarPaginaInicial();
+        mvPage.pesquisarIssue(id_IssueCriado);
+        mvPage.clicarPesquisar();
+        mvPage.editarIssue();
+        mvPage.editarStatus();
+        String status = "resolved";
+        String addInfo = "Edição com sucesso.";
+        String addNote = "Issue resolvido.";
+        mvPage.editarAdditionalInformation(addInfo);
+        mvPage.editarAddNote(addNote);
+        mvPage.clicarBotaoUpdateInformation();
+        assertEquals(mvPage.obterStatusEditado(), status);
+        assertEquals(mvPage.obterAdditionalInformationEditado(), addInfo);
+        assertEquals(mvPage.obterAddNoteEditado(), addNote);
+        carregarPaginaInicial();
+        String issue = "Issue resolvido";
+        capturarTelaSimples(issue);
+
+        //5º Teste = Deletar Issue
+        //Deletar um issue apenas
+        carregarPaginaInicial();
+        mvPage.pesquisarIssue(id_IssueCriado);
+        mvPage.clicarPesquisar();
+        mvPage.clicarBotaoDeletarIssue();
+        mvPage.deletarIssues();
+        mvPage.pesquisarIssue(id_IssueCriado);
+        mvPage.clicarPesquisar();
+        String erro = "Issue deletado";
+        capturarTelaSimples(erro);
+        String issueDeletado = "not found";
+        Assert.assertTrue(mvPage.obterMensagemConfirmaçãoDelete().contains(id_IssueCriado));
+        Assert.assertTrue(mvPage.obterMensagemConfirmaçãoDelete().contains(issueDeletado));
+        //Deletar todos os issues
+        carregarPaginaInicial();
+        mvPage.clicarIssuesReportados();
+        mvPage.clicarSelecionarTodos();
+        mvPage.clicarDeletarTodos();
+        mvPage.clicarBotaoOK();
+        mvPage.deletarIssues();
+        carregarPaginaInicial();
+        String reportados = "Zero Issues";
+        capturarTelaSimples(reportados);
+        mvPage.clicarIssuesReportados();
+        String zeroIssues = "(0 - 0 / 0)";
+        Assert.assertTrue(mvPage.conferirIssuesDeletados().contains(zeroIssues));
     }
 
 }
