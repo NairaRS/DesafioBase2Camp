@@ -34,7 +34,7 @@ public class HomePageTest extends BaseTests {
         String user = homePage.estaLogado();
         String dataHora = homePage.diaEHora();
         System.out.print(dataHora);
-        capturarTela(user, dataHora);
+        //capturarTela(user, dataHora);
 
         //2º Teste = Criar Issue
 
@@ -59,7 +59,7 @@ public class HomePageTest extends BaseTests {
         MyViewPage mvPage = reportPage.clicarBotaoSubmeter();
         String submissao = "Report_Issue_Sucesso";
         String diaHora = reportPage.dataHora();
-        capturarTela(submissao, diaHora);
+        //capturarTela(submissao, diaHora);
         System.out.print(diaHora);
         espera();
         String mensagem = "Operation successful.";
@@ -75,7 +75,7 @@ public class HomePageTest extends BaseTests {
         mvPage.pesquisarIssue(id_IssueCriado);
         mvPage.clicarPesquisar();
         //Verificar
-        capturarTelaSimples(id_IssueCriado);
+        //capturarTelaSimples(id_IssueCriado);
         //Assert.assertTrue(mvPage.id_Sucesso().contains(id_IssueCriado));
         //assertEquals(mvPage.id_Sucesso(), id_IssueCriado);
         Pattern p = Pattern.compile("0"+id_IssueCriado+"$");
@@ -89,7 +89,7 @@ public class HomePageTest extends BaseTests {
         ViewIssues viewIssues = mvPage.clicarViewIssues();
         viewIssues.procurarIssue("Teste_NRS");
         viewIssues.filtrarIssue();
-        capturarTelaSimples(sumario);
+        //capturarTelaSimples(sumario);
         assertEquals(viewIssues.localizarIssue(), sumario);
 
         //4º Teste = Editar Issue
@@ -109,7 +109,7 @@ public class HomePageTest extends BaseTests {
         assertEquals(mvPage.obterAddNoteEditado(), addNote);
         carregarPaginaInicial();
         String issue = "Issue resolvido";
-        capturarTelaSimples(issue);
+        //capturarTelaSimples(issue);
 
         //5º Teste = Deletar Issue
         //Deletar um issue apenas
@@ -121,23 +121,10 @@ public class HomePageTest extends BaseTests {
         mvPage.pesquisarIssue(id_IssueCriado);
         mvPage.clicarPesquisar();
         String erro = "Issue deletado";
-        capturarTelaSimples(erro);
+        //capturarTelaSimples(erro);
         String issueDeletado = "not found";
         Assert.assertTrue(mvPage.obterMensagemConfirmaçãoDelete().contains(id_IssueCriado));
         Assert.assertTrue(mvPage.obterMensagemConfirmaçãoDelete().contains(issueDeletado));
-        //Deletar todos os issues
-        carregarPaginaInicial();
-        mvPage.clicarIssuesReportados();
-        mvPage.clicarSelecionarTodos();
-        mvPage.clicarDeletarTodos();
-        mvPage.clicarBotaoOK();
-        mvPage.deletarIssues();
-        carregarPaginaInicial();
-        String reportados = "Zero Issues";
-        capturarTelaSimples(reportados);
-        mvPage.clicarIssuesReportados();
-        String zeroIssues = "(0 - 0 / 0)";
-        Assert.assertTrue(mvPage.conferirIssuesDeletados().contains(zeroIssues));
     }
 
 }

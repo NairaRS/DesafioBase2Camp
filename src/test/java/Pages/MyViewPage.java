@@ -14,21 +14,20 @@ public class MyViewPage {
     private By nome = By.xpath("//table/tbody/tr[11]/td[2]");
     private By reportedIssues = By.xpath("//*[contains(text(), 'Reported by Me')]");
     private By botaoViewIssue = By.xpath("//a[contains(@href, '/view_all')]");
-    private By editar = By.cssSelector(".button[value='Edit']");
+    private By editar = By.xpath("//input[@value='Edit']");
     private By status = By.cssSelector(".row-1 select[tabindex='7'] option[value='80']");
     private By addInfo = By.xpath("//textarea[@name='additional_information']");
     private By addNote = By.xpath("//textarea[@name='bugnote_text']");
     private By botaoUpdateInformation = By.cssSelector(".button[value='Update Information']");
     private By addInfoEditada = By.xpath("//table/tbody/tr[13]/td[2]");
-    private By addNoteEditada = By.className("bugnote-note-public");
+    private By addNoteEditada = By.xpath("//*[@class='bugnote-note-public']");
     private By statusEditado = By.cssSelector(".row-1 td[bgcolor]");
-    private By botaoDeletar = By.cssSelector(".button[value='Delete'");
-    private By botaoDeletarIssues = By.cssSelector(".button[value='Delete Issues']");
-    private By pesquisaIssueDeletado = By.className("small[value='Issue #']");
+    private By botaoDeletar = By.xpath("//input[@value='Delete']");
+    private By botaoDeletarIssues = By.xpath("//input[@value='Delete Issues']");
     private By erro = By.cssSelector(".center[style='color:red']");
     private By allIssues = By.xpath("//input[@name='all_bugs']");
     private By deleteAllIssue = By.cssSelector(".left select option[value='DELETE']");
-    private By botaoOK = By.cssSelector(".button[value='OK']");
+    private By botaoOK = By.xpath("//button[@value='OK']");
     private By zeroIssuesReportados = By.xpath("//*[contains(text(), '(0 - 0 / 0)')]");
 
     public MyViewPage(WebDriver driver){
