@@ -27,8 +27,9 @@ public class MyViewPage {
     private By erro = By.cssSelector(".center[style='color:red']");
     private By allIssues = By.xpath("//input[@name='all_bugs']");
     private By deleteAllIssue = By.cssSelector(".left select option[value='DELETE']");
-    private By botaoOK = By.xpath("//button[@value='OK']");
-    private By zeroIssuesReportados = By.xpath("//*[contains(text(), '(0 - 0 / 0)')]");
+    private By botaoOK = By.xpath("//input[@value='OK']");
+    private By deleteIssues = By.xpath("//input[@value='Delete Issues']");
+   // private By zeroIssuesReportados = By.xpath("//*[contains(text(), '(0 - 0 / 0)')]");
 
     public MyViewPage(WebDriver driver){
         this.driver = driver;
@@ -127,9 +128,13 @@ public class MyViewPage {
         driver.findElement(botaoOK).click();
     }
 
-    public String conferirIssuesDeletados(){
-        return driver.findElement(zeroIssuesReportados).getText();
+    public void deletarTodosOsIssues(){
+        driver.findElement(deleteIssues).click();
     }
+
+    /*public String conferirIssuesDeletados(){
+        return driver.findElement(zeroIssuesReportados).getText();
+    }*/
 
 
 }
