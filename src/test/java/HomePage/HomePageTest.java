@@ -2,7 +2,6 @@ package HomePage;
 
 import Base.BaseTests;
 import Pages.HomePage;
-import Pages.MyViewPage;
 import Pages.ReportPage;
 import Pages.ViewIssues;
 import Util.Funcoes;
@@ -14,7 +13,17 @@ import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 
-public class HomePageTest extends BaseTests {
+public class HomePageTest extends BaseTests{
+
+    HomePage homePage;
+    ReportPage reportPage;
+    String id_IssueCriado;
+    String categoria = "[All Projects] Teste";
+    String sumario = "Teste_naira.souza";
+    String descricao = "Teste rapido software";
+    String submissao = "Report_Issue_Sucesso";
+    String nome_projeto = "Desafio jMeter Project 1";
+    ViewIssues viewIssues;
 
     @Test
     public void testeLoginComSucesso_EstaLogado() {
@@ -27,112 +36,117 @@ public class HomePageTest extends BaseTests {
         //Clicar lembrar login
         loginPage.clicarLembrarLogin();
         //Clicar botão login
-        HomePage homePage = loginPage.clicarBotaoLogin();
+        homePage = loginPage.clicarBotaoLogin();
         //Conferir se usuario está logado
-        //carregarPaginaInicial();
         assertEquals(homePage.estaLogado(), "naira.souza");
         String user = homePage.estaLogado();
-        String dataHora = homePage.diaEHora();
-        System.out.print(dataHora);
-        capturarTelaSimples(user);
+        capturarTelaSimples(user);}
 
-        //2º Teste = Criar Issue
-
-        ReportPage reportPage = homePage.reportarIssue();
+    @Test
+    public void testeCriarIssue_IssueCriadoComSucess(){
+        testeLoginComSucesso_EstaLogado();
+        reportPage = homePage.reportarIssue();
         //Escolher projeto
-        String nome_projeto = "Desafio jMeter Project 1";
         reportPage.escolherProjeto();
         //Selecionar projeto
         reportPage.selecionarProjeto();
         //Selecionar categoria
-        String categoria = "[All Projects] Teste";
         reportPage.selecionarCategoria();
         //Selecionar reprodutibilidade
         reportPage.selecionarReprodutibilidade();
         //Preencher sumario
-        String sumario = "Teste_NRS";
         reportPage.preencherSumario(sumario);
         //Preencher descricao
-        String descricao = "Teste rapido software";
         reportPage.preencherDescricao(descricao);
         //Submeter
-        MyViewPage mvPage = reportPage.clicarBotaoSubmeter();
-        String submissao = "Report_Issue_Sucesso";
-        String diaHora = reportPage.dataHora();
-        System.out.print(diaHora);
-        espera();
+        reportPage.clicarBotaoSubmeter();
         String mensagem = "Operation successful.";
-        String id_IssueCriado = Funcoes.remove_texto(reportPage.issueReportadoComSucesso());
-        System.out.print(id_IssueCriado);
+        id_IssueCriado = Funcoes.remove_texto(reportPage.issueReportadoComSucesso());
+        System.out.print("O ID do issue criado é " + id_IssueCriado);
         String criacao = "Issue Criado";
         capturarTela(id_IssueCriado, criacao);
         Assert.assertTrue(reportPage.issueReportadoComSucesso().contains(mensagem));
+    }
 
-        //3º Teste = Pesquisar Issue
 
+    @Test
+    public void testePesquisarIssue_IssueEncotrado(){
+        testeLoginComSucesso_EstaLogado();
         //Pesquisar issue por ID
-        //String id = "9036";
+        String id = "9375";
+        homePage.pesquisarIssue(id);
+        viewIssues = homePage.clicarBotaoJump();
+        //Verificar ID
+        Pattern p = Pattern.compile("0"+id+"$");
+        Matcher m = p.matcher(viewIssues.id_Sucesso());
+        Assert.assertTrue("Tem meu dígito!", m.find());
+        //Verificar categoria, sumário e proejto
+        String categoriaIssueEditado = "[All Projects] Desafio";
+        String sumarioIssueEditado = "Teste Pesquisar e Editar Issue";
+        assertEquals(viewIssues.category_Sucesso(), categoriaIssueEditado);
+        Assert.assertTrue(viewIssues.summary_Sucesso().contains(sumarioIssueEditado));
+        assertEquals(viewIssues.project_Sucesso(), nome_projeto);
+        //Pesquisar por nome do issue
         carregarPaginaInicial();
-        mvPage.pesquisarIssue(id_IssueCriado);
-        mvPage.clicarPesquisar();
-        //Verificar
-        //capturarTelaSimples(id_IssueCriado);
-        //Assert.assertTrue(mvPage.id_Sucesso().contains(id_IssueCriado));
-        //assertEquals(mvPage.id_Sucesso(), id_IssueCriado);
-        Pattern p = Pattern.compile("0"+id_IssueCriado+"$");
-        Matcher m = p.matcher(mvPage.id_Sucesso());
-        Assert.assertTrue("Tem meu dígito!", m.find());;
-        assertEquals(mvPage.category_Sucesso(), categoria);
-        Assert.assertTrue(mvPage.summary_Sucesso().contains(sumario));
-        assertEquals(mvPage.project_Sucesso(), nome_projeto);
-        //Pesquisar por outros filtros
-        carregarPaginaInicial();
-        ViewIssues viewIssues = mvPage.clicarViewIssues();
-        viewIssues.procurarIssue("Teste_NRS");
+        viewIssues = homePage.clicarViewIssues();
+        viewIssues.selecionarProjetoCorreto();
+        viewIssues.procurarIssue(sumarioIssueEditado);
         viewIssues.filtrarIssue();
-        assertEquals(viewIssues.localizarIssue(), sumario);
+        //Verificar nome
+        assertEquals(viewIssues.localizarIssue(), sumarioIssueEditado);}
 
-        //4º Teste = Editar Issue
-        carregarPaginaInicial();
-        mvPage.pesquisarIssue(id_IssueCriado);
-        mvPage.clicarPesquisar();
-        mvPage.editarIssue();
-        mvPage.editarStatus();
+    @Test
+    public void testeEditarIssue_IssueEditado(){
+        testeLoginComSucesso_EstaLogado();
+        //Pesquisar por id
+        String id = "9375";
+        homePage.pesquisarIssue(id);
+        viewIssues = homePage.clicarBotaoJump();
+        //Editar issue
+        viewIssues.editarIssue();
+        viewIssues.editarStatus();
         String status = "resolved";
         String addInfo = "Edição com sucesso.";
         String addNote = "Issue resolvido.";
-        mvPage.editarAdditionalInformation(addInfo);
-        mvPage.editarAddNote(addNote);
-        mvPage.clicarBotaoUpdateInformation();
+        viewIssues.editarAdditionalInformation(addInfo);
+        viewIssues.editarAddNote(addNote);
+        viewIssues.clicarBotaoUpdateInformation();
+        //Verificar edição
         String issue = "Issue resolvido";
-        capturarTela(id_IssueCriado,issue);
-        assertEquals(mvPage.obterStatusEditado(), status);
-        assertEquals(mvPage.obterAdditionalInformationEditado(), addInfo);
-        assertEquals(mvPage.obterAddNoteEditado(), addNote);
+        capturarTela(id,issue);
+        assertEquals(viewIssues.obterStatusEditado(), status);
+        assertEquals(viewIssues.obterAdditionalInformationEditado(), addInfo);
+        assertEquals(viewIssues.obterAddNoteEditado(), addNote);}
 
-        //5º Teste = Deletar Issue
+    @Test
+    public void testeExcluirIssue_IssueNaoEncontrado(){
+        testeLoginComSucesso_EstaLogado();
         //Deletar um issue apenas
-        carregarPaginaInicial();
-        mvPage.pesquisarIssue(id_IssueCriado);
-        mvPage.clicarPesquisar();
-        mvPage.clicarBotaoDeletarIssue();
-        mvPage.deletarIssues();
-        mvPage.pesquisarIssue(id_IssueCriado);
-        mvPage.clicarPesquisar();
+        //Pesquisar por id
+        String id = "9374";
+        homePage.pesquisarIssue(id);
+        viewIssues = homePage.clicarBotaoJump();
+        //Deletar issue
+        viewIssues.clicarBotaoDeletarIssue();
+        viewIssues.deletarIssues();
+        //Pesquisar issue deletado
+        homePage.pesquisarIssue(id);
+        homePage.clicarBotaoJump();
+        //Verificar
         String erro = "Issue deletado";
-        capturarTela(id_IssueCriado,erro);
+        capturarTela(id,erro);
         String issueDeletado = "not found";
-        Assert.assertTrue(mvPage.obterMensagemConfirmaçãoDelete().contains(id_IssueCriado));
-        Assert.assertTrue(mvPage.obterMensagemConfirmaçãoDelete().contains(issueDeletado));
+        Assert.assertTrue(viewIssues.obterMensagemConfirmaçãoDelete().contains(id));
+        Assert.assertTrue(viewIssues.obterMensagemConfirmaçãoDelete().contains(issueDeletado));
         //Deletar todos os issues
-        carregarPaginaInicial();
-        mvPage.clicarIssuesReportados();
-        mvPage.clicarSelecionarTodos();
-        mvPage.clicarDeletarTodos();
-        mvPage.clicarBotaoOK();
-        mvPage.deletarTodosOsIssues();
+        /*carregarPaginaInicial();
+        homePage.clicarIssuesReportados();
+        viewIssues.clicarSelecionarTodos();
+        viewIssues.clicarDeletarTodos();
+        viewIssues.clicarBotaoOK();
+        viewIssues.deletarTodosOsIssues();
         //String zeroIssues = "(0-0/0)";
-        //Assert.assertTrue(mvPage.conferirIssuesDeletados().contains(zeroIssues));
+        //Assert.assertTrue(mvPage.conferirIssuesDeletados().contains(zeroIssues))*/;
     }
 
 }
