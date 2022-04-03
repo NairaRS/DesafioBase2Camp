@@ -7,10 +7,8 @@ import Pages.ViewIssues;
 import Util.Funcoes;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import static org.junit.Assert.assertEquals;
 
 public class HomePageTest extends BaseTests{
@@ -18,17 +16,15 @@ public class HomePageTest extends BaseTests{
     HomePage homePage;
     ReportPage reportPage;
     String id_IssueCriado;
-    String categoria = "[All Projects] Teste";
+    //String categoria = "[All Projects] Teste";
     String sumario = "Teste_naira.souza";
     String descricao = "Teste rapido software";
-    String submissao = "Report_Issue_Sucesso";
+    //String submissao = "Report_Issue_Sucesso";
     String nome_projeto = "Desafio jMeter Project 1";
     ViewIssues viewIssues;
 
     @Test
     public void testeLoginComSucesso_EstaLogado() {
-        inicializar();
-        carregarPaginaInicial();
         //Preencher usuario
         loginPage.preencherUsuario("naira.souza");
         //Preencher senha
@@ -44,7 +40,8 @@ public class HomePageTest extends BaseTests{
 
     @Test
     public void testeCriarIssue_IssueCriadoComSucess(){
-        testeLoginComSucesso_EstaLogado();
+        stepLogin();
+        homePage = loginPage.clicarBotaoLogin();
         reportPage = homePage.reportarIssue();
         //Escolher projeto
         reportPage.escolherProjeto();
@@ -71,7 +68,9 @@ public class HomePageTest extends BaseTests{
 
     @Test
     public void testePesquisarIssue_IssueEncotrado(){
-        testeLoginComSucesso_EstaLogado();
+        //Considerando uma massa de dados em que o issue de id=9375 existe no banco de dados do Mantis
+        stepLogin();
+        homePage = loginPage.clicarBotaoLogin();
         //Pesquisar issue por ID
         String id = "9375";
         homePage.pesquisarIssue(id);
@@ -97,7 +96,9 @@ public class HomePageTest extends BaseTests{
 
     @Test
     public void testeEditarIssue_IssueEditado(){
-        testeLoginComSucesso_EstaLogado();
+        //Considerando uma massa de dados em que o issue de id=9375 existe no banco de dados do Mantis
+        stepLogin();
+        homePage = loginPage.clicarBotaoLogin();
         //Pesquisar por id
         String id = "9375";
         homePage.pesquisarIssue(id);
@@ -115,15 +116,17 @@ public class HomePageTest extends BaseTests{
         String issue = "Issue resolvido";
         capturarTela(id,issue);
         assertEquals(viewIssues.obterStatusEditado(), status);
-        assertEquals(viewIssues.obterAdditionalInformationEditado(), addInfo);
+        Assert.assertTrue(viewIssues.obterAdditionalInformationEditado().contains(addInfo));
         assertEquals(viewIssues.obterAddNoteEditado(), addNote);}
 
     @Test
     public void testeExcluirIssue_IssueNaoEncontrado(){
-        testeLoginComSucesso_EstaLogado();
+        //Considerando uma massa de dados em que o issue de id=9374 existe no banco de dados do Mantis
+        stepLogin();
+        homePage = loginPage.clicarBotaoLogin();
         //Deletar um issue apenas
         //Pesquisar por id
-        String id = "9374";
+        String id = "9422";
         homePage.pesquisarIssue(id);
         viewIssues = homePage.clicarBotaoJump();
         //Deletar issue
