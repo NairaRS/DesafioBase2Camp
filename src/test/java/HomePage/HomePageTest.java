@@ -16,10 +16,8 @@ public class HomePageTest extends BaseTests{
     HomePage homePage;
     ReportPage reportPage;
     String id_IssueCriado;
-    //String categoria = "[All Projects] Teste";
     String sumario = "Teste_naira.souza";
     String descricao = "Teste rapido software";
-    //String submissao = "Report_Issue_Sucesso";
     String nome_projeto = "Desafio jMeter Project 1";
     ViewIssues viewIssues;
 
