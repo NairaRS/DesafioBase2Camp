@@ -24,10 +24,10 @@ public class ViewIssues {
     private By botaoDeletar = By.xpath("//input[@value='Delete']");
     private By botaoDeletarIssues = By.xpath("//input[@value='Delete Issues']");
     private By erro = By.xpath("//*[@class='center'][@style='color:red']");
-    private By allIssues = By.xpath("//input[@name='all_bugs']");
-    private By deleteAllIssue = By.xpath("//*[@class='left']//option[@value='DELETE']");
-    private By botaoOK = By.xpath("//input[@value='OK']");
-    private By deleteIssues = By.xpath("//input[@value='Delete Issues']");
+    //private By allIssues = By.xpath("//input[@name='all_bugs']");
+    //private By deleteAllIssue = By.xpath("//*[@class='left']//option[@value='DELETE']");
+    //private By botaoOK = By.xpath("//input[@value='OK']");
+    //private By deleteIssues = By.xpath("//input[@value='Delete Issues']");
 
 
     public ViewIssues(WebDriver driver){

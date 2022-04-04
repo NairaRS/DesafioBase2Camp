@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+
 
 public class BaseTests{
     private static WebDriver driver;
@@ -21,9 +21,8 @@ public class BaseTests{
     public static void inicializar(){
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\naira\\Downloads\\chromedriver.exe");
         driver = new ChromeDriver();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //WebDriverWait wait = new WebDriverWait(driver,15);
     }
+
     @Before
     public void carregarPaginaInicial(){
         driver.get("https://mantis-prova.base2.com.br");
@@ -56,7 +55,7 @@ public class BaseTests{
             loginPage.preencherUsuario(user);
             loginPage.preencherSenha(password);
             loginPage.clicarLembrarLogin();
-        }
+    }
 
     @AfterClass
     public static void finalizar(){

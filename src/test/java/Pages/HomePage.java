@@ -10,7 +10,7 @@ public class HomePage {
     private By pesquisar = By.xpath("//input[@name='bug_id']");
     private By jump = By.xpath("//input[@value='Jump']");
     private By botaoViewIssue = By.xpath("//a[contains(@href, '/view_all')]");
-    private By reportedIssues = By.xpath("//*[contains(text(), 'Reported by Me')]");
+    //private By reportedIssues = By.xpath("//*[contains(text(), 'Reported by Me')]");
 
     public HomePage (WebDriver driver){
         this.driver = driver;
