@@ -86,7 +86,7 @@ public class HomePageTest extends BaseTests{
         Assert.assertTrue(viewIssues.summary_Sucesso().contains(sumarioIssueEditado));
         assertEquals(viewIssues.project_Sucesso(), nome_projeto);
         //Pesquisar por nome do issue
-        carregarPaginaInicial();
+        //carregarPaginaInicial();
         viewIssues = homePage.clicarViewIssues();
         viewIssues.selecionarProjetoCorreto();
         viewIssues.procurarIssue(sumarioIssueEditado);

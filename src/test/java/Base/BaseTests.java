@@ -22,14 +22,10 @@ public class BaseTests{
     private static WebDriver driver;
     protected static LoginPage loginPage;
 
-    @BeforeClass
-    public static void inicializar(){
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/target/drivers/chromedriver.exe");;
-        driver = new ChromeDriver();
-    }
-
     @Before
     public void carregarPaginaInicial(){
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/target/drivers/chromedriver.exe");
+        driver = new ChromeDriver();
         driver.get("https://mantis-prova.base2.com.br");
         loginPage = new LoginPage(driver);
     }
@@ -62,8 +58,8 @@ public class BaseTests{
             loginPage.clicarLembrarLogin();
     }
 
-    @AfterClass
-    public static void finalizar(){
+    @After
+    public void finalizar(){
         driver.quit();
     }
 }
