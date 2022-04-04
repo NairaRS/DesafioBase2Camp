@@ -24,7 +24,7 @@ public class BaseTests{
 
     @BeforeClass
     public static void inicializar(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\naira\\Downloads\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/target/drivers/chromedriver.exe");;
         driver = new ChromeDriver();
     }
 
@@ -37,17 +37,17 @@ public class BaseTests{
     public void capturarTelaSimples(String nomeTeste) {
         File capturaDeTelaSimples = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            Files.move(capturaDeTelaSimples, new File("resources/screenshots/" + nomeTeste + ".png"));
+            Files.move(capturaDeTelaSimples, new File(System.getProperty("user.dir") + "/target/screenshots/" + nomeTeste + ".png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public void capturarTela(String nomeTeste, String dataEHora) {
+    public void capturarTela(String nomeTeste, String texto) {
         File capturaDeTela = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            Files.move(capturaDeTela, new File("resources/screenshots/" + nomeTeste + "_" + dataEHora + ".png"));
+            Files.move(capturaDeTela, new File(System.getProperty("user.dir") + "/target/screenshots/" + nomeTeste + "_" + texto + ".png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
