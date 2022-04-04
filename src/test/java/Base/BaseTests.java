@@ -2,7 +2,6 @@ package Base;
 
 import Pages.LoginPage;
 import com.google.common.io.Files;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -17,10 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class BaseTests{
     private static WebDriver driver;
     protected static LoginPage loginPage;
-
-    public static void espera(){
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
 
     @BeforeClass
     public static void inicializar(){

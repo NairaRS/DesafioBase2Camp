@@ -79,6 +79,8 @@ public class HomePageTest extends BaseTests{
         Pattern p = Pattern.compile("0"+id+"$");
         Matcher m = p.matcher(viewIssues.id_Sucesso());
         Assert.assertTrue("Tem meu dígito!", m.find());
+        String encontrado = "Issue encontrado";
+        capturarTela(id,encontrado);
         //Verificar categoria, sumário e proejto
         String categoriaIssueEditado = "[All Projects] Desafio";
         String sumarioIssueEditado = "Teste Pesquisar e Editar Issue";
@@ -126,7 +128,7 @@ public class HomePageTest extends BaseTests{
         homePage = loginPage.clicarBotaoLogin();
         //Deletar um issue apenas
         //Pesquisar por id
-        String id = "9422";
+        String id = "9374";
         homePage.pesquisarIssue(id);
         viewIssues = homePage.clicarBotaoJump();
         //Deletar issue
