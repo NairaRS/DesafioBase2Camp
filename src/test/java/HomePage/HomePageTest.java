@@ -113,7 +113,7 @@ public class HomePageTest extends BaseTests{
         viewIssues.editarAddNote(addNote);
         viewIssues.clicarBotaoUpdateInformation();
         //Verificar edição
-        String issue = "Issue resolvido";
+        String issue = "Issue editado";
         capturarTela(id,issue);
         assertEquals(viewIssues.obterStatusEditado(), status);
         Assert.assertTrue(viewIssues.obterAdditionalInformationEditado().contains(addInfo));
