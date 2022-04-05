@@ -117,7 +117,7 @@ public class HomePageTest extends BaseTests{
 
     @Test
     public void testeExcluirIssue_IssueNaoEncontrado(){
-        //Considerando uma massa de dados em que o issue de id=9495 existe no banco de dados do Mantis
+        //Considerando uma massa de dados em que o issue de id=9523 existe no banco de dados do Mantis
         stepLogin();
         homePage = loginPage.clicarBotaoLogin();
         //Deletar um issue apenas
