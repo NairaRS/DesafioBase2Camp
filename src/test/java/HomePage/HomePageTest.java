@@ -79,20 +79,16 @@ public class HomePageTest extends BaseTests{
         Assert.assertTrue("Tem meu dígito!", m.find());
         String encontrado = "Issue encontrado";
         capturarTela(id,encontrado);
-        //Verificar categoria, sumário e proejto
-        String categoriaIssueEditado = "[All Projects] Desafio";
-        String sumarioIssueEditado = "Teste Pesquisar e Editar Issue";
-        assertEquals(viewIssues.category_Sucesso(), categoriaIssueEditado);
-        Assert.assertTrue(viewIssues.summary_Sucesso().contains(sumarioIssueEditado));
-        assertEquals(viewIssues.project_Sucesso(), nome_projeto);
-        //Pesquisar por nome do issue
+
+        //Pesquisar por nome do issue, considerando um isse com o nome "Teste Pesquisar e Editar Issue"
         //carregarPaginaInicial();
         viewIssues = homePage.clicarViewIssues();
         viewIssues.selecionarProjetoCorreto();
+        String sumarioIssueEditado = "Teste Pesquisar e Editar Issue";
         viewIssues.procurarIssue(sumarioIssueEditado);
         viewIssues.filtrarIssue();
         //Verificar nome
-        assertEquals(viewIssues.localizarIssue(), sumarioIssueEditado);}
+        Assert.assertTrue(viewIssues.localizarIssue().contains(sumarioIssueEditado));}
 
     @Test
     public void testeEditarIssue_IssueEditado(){
@@ -126,7 +122,7 @@ public class HomePageTest extends BaseTests{
         homePage = loginPage.clicarBotaoLogin();
         //Deletar um issue apenas
         //Pesquisar por id
-        String id = "9495";
+        String id = "9523";
         homePage.pesquisarIssue(id);
         viewIssues = homePage.clicarBotaoJump();
         //Deletar issue

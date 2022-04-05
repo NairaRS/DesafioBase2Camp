@@ -7,11 +7,11 @@ public class ViewIssues {
     private WebDriver driver;
     private By pesquisa = By.xpath("//*[@id='filter_open']//input[@name='search']");
     private By filtro = By.xpath("//*[@id='filter_open']//input[@name='search']");
-    private By localiza = By.xpath("//*[contains(text(), 'Teste Pesquisar')]");
-    private By id = By.xpath("//td[contains(text(), '9375')]");
-    private By project = By.xpath("//td[contains(text(), 'Project 1')]");
-    private By category = By.xpath("//td[contains(text(), '[All Projects] Desafio')]");
-    private By nome = By.xpath("//table[3]//td[contains(text(), 'Teste Pesquisar')]");
+    private By localiza = By.xpath("//*[@id='buglist']");
+    private By id = By.xpath("//table[3]/tbody/tr[3]/td[1]");
+    //private By project = By.xpath("//td[contains(text(), 'Project 1')]");
+    //private By category = By.xpath("//td[contains(text(), '[All Projects] Desafio')]");
+    //private By nome = By.xpath("//table[3]//td[contains(text(), 'Teste Pesquisar')]");
     private By projetoCorreto = By.xpath("//*[@class='login-info-right']//option[@value='0']");
     private By editar = By.xpath("//input[@value='Edit']");
     private By status = By.xpath("//*[@class='row-1']//select[@tabindex='7']//option[@value='80']");
@@ -50,7 +50,7 @@ public class ViewIssues {
         return driver.findElement(id).getText();
     }
 
-    public String summary_Sucesso(){
+    /*public String summary_Sucesso(){
         return driver.findElement(nome).getText();
     }
 
@@ -60,7 +60,7 @@ public class ViewIssues {
 
     public String project_Sucesso(){
         return driver.findElement(project).getText();
-    }
+    }*/
 
     public void selecionarProjetoCorreto(){
         driver.findElement(projetoCorreto).click();
